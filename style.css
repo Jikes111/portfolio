@@ -169,5 +169,56 @@ footer {
   }
   .hero p {
     font-size: 1rem;
+
+/* Testimonials Carousel */
+.testimonial-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 2rem;
+}
+
+.testimonial-item {
+  min-width: 60%;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transform: scale(0.9);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  background: #fff;
+  padding: 1.5rem;
+  border-left: 5px solid #007bff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.testimonial-item.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.carousel-buttons button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
   }
 }
