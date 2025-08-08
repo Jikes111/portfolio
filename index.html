@@ -2,181 +2,302 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jikes | Portfolio</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: #222;
-      color: #fff;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-
-    h1 {
-      margin-bottom: 0.5rem;
-    }
-
-    nav a {
-      color: #fff;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    section {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    h2 {
-      color: #007bff;
-      margin-top: 0;
-    }
-
-    ul {
-      list-style-type: square;
-      padding-left: 1.2rem;
-    }
-
-    .highlight {
-      font-weight: bold;
-    }
-
-    .testimonial {
-      margin-bottom: 1.5rem;
-      padding-left: 1rem;
-      border-left: 4px solid #007bff;
-    }
-
-    .testimonial-author {
-      margin-top: 0.5rem;
-      font-weight: bold;
-      color: #555;
-    }
-
-    footer {
-      text-align: center;
-      background: #222;
-      color: white;
-      padding: 1rem;
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        margin: 0.5rem 0;
+  <!-- Tailwind via CDN for quick start -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji']
+          },
+          colors: {
+            base: {
+              900: '#0b0e14'
+            }
+          },
+          boxShadow: {
+            glow: '0 0 40px rgba(255,255,255,0.06)'
+          },
+          backgroundImage: {
+            noise: "url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'1200\' height=\'1200\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'2\' stitchTiles=\'stitch\'/></filter><rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\' opacity=\'0.03\'/></svg>')"
+          }
+        }
       }
     }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    html { scroll-behavior: smooth; }
+    /* Glass */
+    .glass { background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); }
+    .glass-strong { background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06)); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.18); }
+    /* Hide scrollbar for carousels */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Subtle card hover */
+    .lift { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+    .lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.35); border-color: rgba(255,255,255,0.28); }
+    /* Parallax hero image */
+    .parallax { transform: translateZ(0); will-change: transform; }
   </style>
 </head>
-<body>
+<body class="bg-base-900 text-white font-sans relative overflow-x-hidden">
+  <!-- Background gradients + noise -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-24 -left-24 h-96 w-96 bg-purple-500/30 blur-3xl rounded-full"></div>
+    <div class="absolute top-1/2 -right-24 h-96 w-96 bg-blue-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute inset-0 bg-noise mix-blend-soft-light"></div>
+  </div>
 
-  <header>
-    <h1>Jikes</h1>
-    <p>Project Manager | Designer | Video Editor</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#tools">Tools</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <!-- NAV -->
+  <header id="nav" class="fixed top-0 inset-x-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="mt-4 glass rounded-2xl shadow-glow flex items-center justify-between px-4 py-3">
+        <a href="#top" class="font-bold tracking-tight text-white/90 hover:text-white text-lg">Jikes</a>
+        <div class="hidden md:flex items-center gap-1">
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#about">About</a>
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#skills">Skills</a>
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#experience">Experience</a>
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#projects">Projects</a>
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#tools">Tools</a>
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#testimonials">Testimonials</a>
+          <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#contact">Contact</a>
+        </div>
+        <button id="menuBtn" class="md:hidden p-2 rounded-xl hover:bg-white/10" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+      </nav>
+    </div>
+    <!-- mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden mx-4 mt-2 glass rounded-2xl px-4 py-3">
+      <div class="grid gap-2">
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#about">About</a>
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#skills">Skills</a>
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#experience">Experience</a>
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#projects">Projects</a>
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#tools">Tools</a>
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#testimonials">Testimonials</a>
+        <a class="px-3 py-2 rounded-xl hover:bg-white/10" href="#contact">Contact</a>
+      </div>
+    </div>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      Hi! I’m <span class="highlight">Jikes</span>, a driven <strong>Project Manager, Designer, and Video Editor</strong> with a passion for creating immersive online experiences and managing high-impact community projects. Whether it’s Minecraft servers or competitive Roblox racing, I lead with clarity, creativity, and strong organization.
-    </p>
+  <!-- HERO -->
+  <section id="top" class="pt-28 sm:pt-32">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-8 items-center">
+        <div class="space-y-6">
+          <p class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-white/70">
+            <span class="h-2 w-2 rounded-full bg-green-400 animate-pulse"></span> Available for collaboration
+          </p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05]">
+            Project Manager, Designer &
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/40">Video Editor</span>
+          </h1>
+          <p class="text-white/80 text-lg max-w-xl">I build organized, high-impact communities and ship polished digital experiences— from Minecraft servers to competitive Roblox leagues.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#projects" class="glass-strong lift inline-flex items-center gap-2 px-5 py-3 rounded-2xl">View Projects
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#contact" class="lift inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/20 hover:border-white/40">Contact</a>
+          </div>
+        </div>
+        <div class="relative h-72 sm:h-96 lg:h-[28rem]">
+          <div class="absolute inset-0 glass rounded-3xl border lift shadow-glow"></div>
+          <div class="absolute inset-0 rounded-3xl overflow-hidden parallax">
+            <!-- Replace this placeholder image with your own -->
+            <img src="https://images.unsplash.com/photo-1527443224154-c4f2a9fdacda?q=80&w=1600&auto=format&fit=crop" alt="Hero visual" class="h-full w-full object-cover opacity-90">
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Project Management:</strong> Planning, coordinating, and delivering digital projects</li>
-      <li><strong>Design:</strong> Visual design, branding, and community layouts</li>
-      <li><strong>Video Editing:</strong> DaVinci Resolve, Premiere Pro, After Effects</li>
-      <li><strong>Team Leadership:</strong> Managing teams of 30–50+ across game projects</li>
-      <li><strong>Community Engagement:</strong> Hosting events, leading discussions, fostering growth</li>
-    </ul>
+  <!-- ABOUT -->
+  <section id="about" class="mt-20 sm:mt-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-6 items-start">
+        <div class="lg:col-span-2 glass rounded-3xl p-8 border lift">
+          <h2 class="text-2xl font-semibold mb-3">About Me</h2>
+          <p class="text-white/80 leading-7">Hi! I’m <strong>Jikes</strong>, a driven Project Manager, Designer, and Video Editor with a passion for immersive online experiences and high-impact community projects. Whether it’s Minecraft servers or competitive Roblox racing, I lead with clarity, creativity, and strong organization.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 border lift">
+          <h3 class="text-lg font-semibold mb-3">Quick Stats</h3>
+          <ul class="space-y-2 text-white/80">
+            <li>💼 30–50+ member teams led</li>
+            <li>🎬 DaVinci Resolve • Premiere Pro • After Effects</li>
+            <li>🎮 Roblox • Minecraft • Discord</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <h3>Project Manager – RED FROST INC</h3>
-    <p>
-      Currently leading the development and coordination efforts for <strong>RED FROST INC</strong>, an upcoming game project. I manage project planning, team collaboration, feature scoping, and delivery pipelines. This includes working closely with game developers, artists, and designers to ensure high-quality releases, while guiding the creative vision and communication across departments.
-    </p>
+  <!-- SKILLS -->
+  <section id="skills" class="mt-16 sm:mt-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-semibold mb-6">Skills</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass rounded-3xl p-6 border lift">
+          <h3 class="font-semibold mb-2">Project Management</h3>
+          <p class="text-white/80">Planning, coordinating, and delivering digital projects.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 border lift">
+          <h3 class="font-semibold mb-2">Design</h3>
+          <p class="text-white/80">Visual design, branding, and community layouts.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 border lift">
+          <h3 class="font-semibold mb-2">Video Editing</h3>
+          <p class="text-white/80">DaVinci Resolve, Premiere Pro, After Effects.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 border lift">
+          <h3 class="font-semibold mb-2">Team Leadership</h3>
+          <p class="text-white/80">Managing teams of 30–50+ across game projects.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 border lift">
+          <h3 class="font-semibold mb-2">Community Engagement</h3>
+          <p class="text-white/80">Hosting events, leading discussions, fostering growth.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="projects">
-    <h2>Portfolio Highlights</h2>
-
-    <h3>Minecraft Server Projects</h3>
-    <p><strong>Role:</strong> Owner & Project Manager</p>
-    <ul>
-      <li>Managed and grew multiplayer servers with 50+ active members</li>
-      <li>Handled plugins, roles, community moderation, and event planning</li>
-    </ul>
-
-    <h3>BWT Competizione – Roblox Racing League</h3>
-    <p><strong>Role:</strong> Creator, Lead Designer, Project Manager</p>
-    <ul>
-      <li>Designed and launched a weekly racing league on Roblox</li>
-      <li>Handled branding, scheduling, track design, and community building</li>
-      <li>Attracted 30+ active racers and hosted professional-level events</li>
-    </ul>
+  <!-- EXPERIENCE -->
+  <section id="experience" class="mt-16 sm:mt-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-semibold mb-6">Experience</h2>
+      <article class="glass rounded-3xl p-8 border lift">
+        <h3 class="text-xl font-semibold">Project Manager – RED FROST INC</h3>
+        <p class="text-white/80 mt-2">Leading development and coordination for an upcoming game project: planning, collaboration, feature scoping, and delivery pipelines with developers, artists, and designers to ship high-quality releases.</p>
+      </article>
+    </div>
   </section>
 
-  <section id="tools">
-    <h2>Tools & Technologies</h2>
-    <ul>
-      <li>Project: Trello, Notion, Google Drive</li>
-      <li>Video: DaVinci Resolve, Premiere Pro, After Effects</li>
-      <li>Design: Canva, Photoshop (basic)</li>
-      <li>Game Platforms: Roblox, Minecraft</li>
-      <li>Community: Discord (bots, roles, permissions, events)</li>
-    </ul>
+  <!-- PROJECTS: horizontally scrollable cards with snap -->
+  <section id="projects" class="mt-16 sm:mt-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-4">
+        <h2 class="text-2xl font-semibold">Projects</h2>
+        <div class="text-sm text-white/60">Scroll →</div>
+      </div>
+      <div class="relative">
+        <div class="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-4">
+          <!-- CARD 1 -->
+          <article class="min-w-[85%] sm:min-w-[60%] lg:min-w-[40%] snap-start glass rounded-3xl border lift overflow-hidden">
+            <div class="aspect-video overflow-hidden">
+              <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop" alt="Minecraft server"/>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold">Minecraft Server Projects</h3>
+              <p class="text-white/80 mt-1">Owner & Project Manager. Grew multiplayer servers to 50+ active members. Managed plugins, roles, moderation, and event planning.</p>
+              <div class="mt-3 flex flex-wrap gap-2 text-xs text-white/70">
+                <span class="px-2 py-1 rounded-full bg-white/10 border border-white/10">Discord</span>
+                <span class="px-2 py-1 rounded-full bg-white/10 border border-white/10">Community</span>
+                <span class="px-2 py-1 rounded-full bg-white/10 border border-white/10">Events</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 2 -->
+          <article class="min-w-[85%] sm:min-w-[60%] lg:min-w-[40%] snap-start glass rounded-3xl border lift overflow-hidden">
+            <div class="aspect-video overflow-hidden">
+              <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1600&auto=format&fit=crop" alt="Roblox Racing League"/>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold">BWT Competizione – Roblox Racing League</h3>
+              <p class="text-white/80 mt-1">Creator, Lead Designer, PM. Weekly racing league with 30+ active racers, pro-level events, branding, schedule & track design.</p>
+              <div class="mt-3 flex flex-wrap gap-2 text-xs text-white/70">
+                <span class="px-2 py-1 rounded-full bg-white/10 border border-white/10">Roblox</span>
+                <span class="px-2 py-1 rounded-full bg-white/10 border border-white/10">Design</span>
+                <span class="px-2 py-1 rounded-full bg-white/10 border border-white/10">Project Mgmt</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Add more project cards as needed -->
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="testimonials">
-  <h2>Testimonials</h2>
-  <div class="testimonial">
-    <p>“Jikes built one of the most organized community racing series I’ve ever seen on Roblox. From the track design to the race schedules, everything was spot on.”</p>
-    <p class="testimonial-author">– FirstAidGuy, Participant</p>
-  </div>
-
-  <div class="testimonial">
-    <p>“Managing a Minecraft server is hard, but Jikes did it with consistency and energy. Weekly events were always on time, and the server felt alive.”</p>
-    <p class="testimonial-author">– GreemPlayz, Member</p>
-  </div>
-</section>
-
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p><strong>Discord:</strong> jikes</p>
-    <p><strong>Email:</strong> <a href="mailto:aj.jikes@gmail.com">aj.jikes@gmail.com</a></p>
+  <!-- TOOLS -->
+  <section id="tools" class="mt-16 sm:mt-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-semibold mb-6">Tools & Technologies</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass rounded-3xl p-6 border lift"><h3 class="font-semibold mb-2">Project</h3><p class="text-white/80">Trello, Notion, Google Drive</p></div>
+        <div class="glass rounded-3xl p-6 border lift"><h3 class="font-semibold mb-2">Video</h3><p class="text-white/80">DaVinci Resolve, Premiere Pro, After Effects</p></div>
+        <div class="glass rounded-3xl p-6 border lift"><h3 class="font-semibold mb-2">Design</h3><p class="text-white/80">Canva, Photoshop (basic)</p></div>
+        <div class="glass rounded-3xl p-6 border lift"><h3 class="font-semibold mb-2">Game Platforms</h3><p class="text-white/80">Roblox, Minecraft</p></div>
+        <div class="glass rounded-3xl p-6 border lift"><h3 class="font-semibold mb-2">Community</h3><p class="text-white/80">Discord (bots, roles, permissions, events)</p></div>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    &copy; 2025 Jikes. All rights reserved.
-  </footer>
+  <!-- TESTIMONIALS: horizontal scroll cards -->
+  <section id="testimonials" class="mt-16 sm:mt-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-4">
+        <h2 class="text-2xl font-semibold">Testimonials</h2>
+        <div class="text-sm text-white/60">Scroll →</div>
+      </div>
+      <div class="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-4">
+        <blockquote class="min-w-[85%] sm:min-w-[60%] lg:min-w-[40%] snap-start glass rounded-3xl p-6 border lift">
+          <p class="text-white/90">“Jikes built one of the most organized community racing series I’ve ever seen on Roblox. From the track design to the race schedules, everything was spot on.”</p>
+          <footer class="mt-3 text-white/70">— FirstAidGuy, Participant</footer>
+        </blockquote>
+        <blockquote class="min-w-[85%] sm:min-w-[60%] lg:min-w-[40%] snap-start glass rounded-3xl p-6 border lift">
+          <p class="text-white/90">“Managing a Minecraft server is hard, but Jikes did it with consistency and energy. Weekly events were always on time, and the server felt alive.”</p>
+          <footer class="mt-3 text-white/70">— GreemPlayz, Member</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
 
+  <!-- CONTACT -->
+  <section id="contact" class="mt-16 sm:mt-24 mb-16 sm:mb-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="glass rounded-3xl p-8 border lift">
+        <h2 class="text-2xl font-semibold mb-3">Contact</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-white/80">
+          <div>
+            <p class="mb-1">Discord: <span class="text-white">jikes</span></p>
+            <p>Email: <a class="underline decoration-white/30 hover:decoration-white" href="mailto:aj.jikes@gmail.com">aj.jikes@gmail.com</a></p>
+          </div>
+          <form class="grid grid-cols-1 gap-3">
+            <input class="glass rounded-xl px-4 py-3 border" placeholder="Your email" type="email"/>
+            <textarea class="glass rounded-xl px-4 py-3 border" rows="3" placeholder="Message"></textarea>
+            <button type="button" class="glass-strong lift px-5 py-3 rounded-2xl w-fit">Send</button>
+            <p class="text-xs text-white/60">(This is a static demo. Hook it to Formspree or Netlify Forms to make it work.)</p>
+          </form>
+        </div>
+      </div>
+      <p class="text-center text-white/50 mt-8">© <span id="year"></span> Jikes. All rights reserved.</p>
+    </div>
+  </section>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Parallax effect for hero image
+    const hero = document.querySelector('.parallax');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY * 0.15; // subtle
+      if (hero) hero.style.transform = `translateY(${y}px)`;
+    });
+  </script>
 </body>
 </html>
